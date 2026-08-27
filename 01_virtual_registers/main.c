@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include <stdint.h>
+
+void set_bit(uint8_t *reg, int bit)
+{
+  *reg = *reg | (1<<bit);
+  printf("%u\n", *reg);
+}
+
+void clear_bit(uint8_t *reg, int bit)
+{
+  *reg = *reg & ~(1<<bit);
+  printf("%u\n", *reg);
+}
+
+void toggle_bit(uint8_t *reg, int bit)
+{
+  *reg = *reg ^ (1<<bit);
+  printf("%u\n", *reg);
+}
+
+void check_bit(uint8_t *reg, int bit)
+{
+  if(*reg & (1<<bit))
+    {
+      printf("Bit is 1\n");
+    }
+  else
+    printf("Bit is 0\n");
+}
+
+void reset(uint8_t *reg)
+{
+  *reg =0;
+  printf("%u\n", *reg);
+}
+
+void print_binary(uint8_t *reg)
+{
+  for(int i= 7; i>=0; i--)
+    {
+      printf("%d", (*reg >>i) &1);
+    }
+  printf("\n");
+}
+
+int main()
+{
+  uint8_t reg = 0;
+  set_bit(&reg, 3);
+  set_bit(&reg, 7);
+
+  clear_bit(&reg, 3);
+
+  toggle_bit(&reg, 0);
+  check_bit(&reg, 0);
+
+  print_binary(&reg);
+  reset(&reg);
+}
